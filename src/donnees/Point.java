@@ -28,14 +28,14 @@ public class Point {
 
 	/**
 	 * 
-	 * @return l'indice x
+	 * @return l'indice x.
 	 */
 	public int getX() {
 		return x;
 	}
 
 	/**
-	 * permet de changer la valeur de x
+	 * permet de changer la valeur de x.
 	 * @param x
 	 */
 	public void setX(int x) {
@@ -44,14 +44,14 @@ public class Point {
 
 	/**
 	 * 
-	 * @return l'indice y
+	 * @return l'indice y.
 	 */
 	public int getY() {
 		return y;
 	}
 	
 	/**
-	 * permet de changer la valeur de y
+	 * permet de changer la valeur de y.
 	 * @param y
 	 */
 
@@ -61,7 +61,7 @@ public class Point {
 	
 	/**
 	 * 
-	 * @return l'indice de z
+	 * @return l'indice de z.
 	 */
 
 	public int getZ() {
@@ -69,7 +69,7 @@ public class Point {
 	}
 
 	/**
-	 * permet de changer la valeur de z
+	 * permet de changer la valeur de z.
 	 * @param z
 	 */
 	public void setZ(int z) {
