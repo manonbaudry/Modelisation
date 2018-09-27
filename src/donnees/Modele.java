@@ -38,4 +38,23 @@ public class Modele {
 		this.segments = segments;
 	}
 	
+	public int getBarycentre (Face face) { 
+		return (face.getS1().getPointA().getZ()+face.getS2().getPointB().getZ()+face.getS3().getPointB().getZ()/3);
+	}
+	
+	
+	public void triFaces () {
+		Face stock;
+		for (int i = 1; i < faces.size(); i ++) {
+			for (int j = 0; j < faces.size()-1; j++) {
+				if (getBarycentre(faces.get(i)) > getBarycentre(faces.get(j))){
+					stock = faces.get(j);
+					faces.add(j, faces.get(i));
+					faces.add(i, stock);
+				}
+			}
+		}
+		
+	}
+	
 }
