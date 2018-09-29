@@ -38,7 +38,7 @@ public class Modele {
 		this.segments = segments;
 	}
 	
-	public int getBarycentre (Face face) { 
+	public double getBarycentre (Face face) { 
 		return (face.getS1().getPointA().getZ()+face.getS2().getPointB().getZ()+face.getS3().getPointB().getZ()/3);
 	}
 	

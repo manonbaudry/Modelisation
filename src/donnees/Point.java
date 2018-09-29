@@ -2,9 +2,9 @@ package donnees;
 
 public class Point {
 	
-	private int x;
-	private int y;
-	private int z;
+	private double x;
+	private double y;
+	private double z;
 	
 	/**
 	 * Constructeur 
@@ -12,7 +12,7 @@ public class Point {
 	 * @param y
 	 * @param z
 	 */
-	public Point (int x ,int y ,int z) {
+	public Point (double x ,double y ,double z) {
 		this.x = x;
 		this.y = y;
 		this.z = z;
@@ -30,7 +30,7 @@ public class Point {
 	 * 
 	 * @return l'indice x.
 	 */
-	public int getX() {
+	public double getX() {
 		return x;
 	}
 
@@ -46,7 +46,7 @@ public class Point {
 	 * 
 	 * @return l'indice y.
 	 */
-	public int getY() {
+	public double getY() {
 		return y;
 	}
 	
@@ -64,7 +64,7 @@ public class Point {
 	 * @return l'indice de z.
 	 */
 
-	public int getZ() {
+	public double getZ() {
 		return z;
 	}
 
