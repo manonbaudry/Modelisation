@@ -20,7 +20,7 @@ public class Face {
 	 * @param s3
 	 *  création d'une face à partir de 3 segments
 	 */
-	public Face( Segment s1,Segment s2, Segment s3) {
+	public Face(Segment s1, Segment s2, Segment s3) {
 		this.s1 = s1;
 		this.s2 = s2;
 		this.s3 = s3;
@@ -46,7 +46,4 @@ public class Face {
 	public Segment getS3() {
 		return s3;
 	}
-
-	
-	
 }
