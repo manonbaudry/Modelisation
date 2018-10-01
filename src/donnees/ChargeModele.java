@@ -63,11 +63,11 @@ public class ChargeModele {
 		}
 	}
 	
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		Modele m = new Modele();
 		ChargeModele.chargeModele(m, new File("ressources/dolphin.ply"));
 		System.out.println(m.getPoints().get(0));
-	}
+	}*/
 	
 
 }

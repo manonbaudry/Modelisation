@@ -1,5 +1,7 @@
 package donnees;
 
+import java.io.File;
+
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -16,6 +18,7 @@ public class Plan extends Application {
 	public Plan(int size, Modele m) {
 		this.size = size;
 		this.m = m;
+		ChargeModele.chargeModele(m, new File("ressources/dolphin.ply"));
 		this.plan = new int[this.size][this.size][this.size];
 	}
 
