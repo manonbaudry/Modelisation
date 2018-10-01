@@ -46,4 +46,12 @@ public class Face {
 	public Segment getS3() {
 		return s3;
 	}
+	
+	public double[] xPoints() {
+		return new double[] {s1.getPointA().getX(), s2.getPointA().getX(), s3.getPointA().getX()};
+	}
+	
+	public double[] yPoints() {
+		return new double[] {s1.getPointA().getY(), s2.getPointA().getY(), s3.getPointA().getY()};
+	}
 }

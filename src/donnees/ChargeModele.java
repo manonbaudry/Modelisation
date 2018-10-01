@@ -10,6 +10,12 @@ import javax.swing.JOptionPane;
 
 public class ChargeModele {
 
+	/**
+	 * Charge le modele avec le fichier
+	 * 
+	 * @param m - Modele
+	 * @param f - file
+	 */
 	public static void chargeModele(Modele m, File f) {
 		try {
 			BufferedReader br = new BufferedReader(new FileReader(f));
@@ -64,12 +70,6 @@ public class ChargeModele {
 		} catch (IOException e) {
 			JOptionPane.showMessageDialog(null, e);
 		}
-	}
-	
-	public static void main(String[] args) {
-		Modele m = new Modele();
-		ChargeModele.chargeModele(m, new File("ressources/dolphin.ply"));
-	}
-	
+	}	
 
 }
