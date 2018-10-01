@@ -16,6 +16,7 @@ public class LineNotFoundException extends Exception {
 	public LineNotFoundException(Throwable cause) {
 		super(cause);
 		
+		
 	}
 	
 }
