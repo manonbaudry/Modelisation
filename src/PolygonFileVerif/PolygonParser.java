@@ -53,6 +53,7 @@ public class PolygonParser {
 				} else if (startWith(line, "element")) {
 					result.setValue(result.isValue() && validateElement(line, idx));
 				}
+				//Gestion Comment + property List
 				line = br.readLine();
 			}
 			br.close();
@@ -70,7 +71,6 @@ public class PolygonParser {
 	
 	
 	public Result parseBody(File f) {
-		
 		return result;
 		
 	}
