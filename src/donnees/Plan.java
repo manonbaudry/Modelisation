@@ -37,6 +37,7 @@ public class Plan extends Application {
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 		root.getChildren().add(canvas);
 		Scene scene = new Scene(root);
+		m.triFaces(m.getFaces());
 		drawModele(gc);
 		s.setScene(scene);
 		s.setTitle("3D scene");
@@ -44,7 +45,7 @@ public class Plan extends Application {
 	}
 	
 	public void drawModele(GraphicsContext gc) {
-		for (int i = 0; i < m.getFaces().size()/3; i++) {
+		for (int i = 0; i < m.getFaces().size(); i++) {
 			double[] xPoints = m.getFaces().get(i).xPoints();
 			double[] yPoints = m.getFaces().get(i).yPoints();
 			for (int j = 0; j < yPoints.length; j++) {
@@ -56,7 +57,7 @@ public class Plan extends Application {
 			gc.fillPolygon(xPoints, yPoints, 3);
 			gc.setFill(Color.GRAY);
 		}
-		for(int i=0;i<m.getSegments().size()/3;i++) {
+		for(int i=0;i<m.getSegments().size();i++) {
 			Segment seg = m.getSegments().get(i);
 			gc.strokeLine(seg.getPointA().getX()+canvas.getWidth()/2, seg.getPointA().getY()+canvas.getHeight()/2, seg.getPointB().getX()+canvas.getWidth()/2, seg.getPointB().getY()+canvas.getHeight()/2);
 		}
