@@ -1,6 +1,7 @@
 package donnees;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Modele {
 
@@ -43,9 +44,21 @@ public class Modele {
 	}
 	
 	
-	public void triFaces () {
-		Face stock;
-		for (int i = 1; i < faces.size(); i ++) {
+	public void triFaces (ArrayList<Face> faces) {
+		Face stock1 = faces.get(0);
+		Face stock2;
+		Face tmp;
+		Iterator <Face> i = faces.iterator();
+		while (i.hasNext()) {
+			stock2 = i.next();
+			if (getBarycentre(stock2) < getBarycentre(stock1)){
+				tmp = stock1;
+				faces.set(faces.indexOf(stock1), stock2);
+				faces.set(faces.indexOf(stock2), tmp);
+				stock1 = stock2;
+			}
+		}
+		/*for (int i = 1; i < faces.size(); i ++) {
 			for (int j = 0; j < faces.size()-1; j++) {
 				if (getBarycentre(faces.get(i)) > getBarycentre(faces.get(j))){
 					stock = faces.get(j);
@@ -53,7 +66,7 @@ public class Modele {
 					faces.add(i, stock);
 				}
 			}
-		}
+		}*/
 		
 	}
 	
