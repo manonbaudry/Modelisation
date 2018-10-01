@@ -14,7 +14,7 @@ public class Result {
 	private ArrayList<String> errors;
 	
 	public Result() {
-		this.value = false;
+		this.value = true;
 		this.errors = new ArrayList<>();
 	}
 
@@ -29,7 +29,7 @@ public class Result {
 	 * @param value the value to set
 	 */
 	public void setValue(boolean value) {
-		value = value;
+		this.value = value;
 	}
 
 	/**
