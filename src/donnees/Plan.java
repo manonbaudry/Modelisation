@@ -29,7 +29,7 @@ public class Plan extends Application {
 	@Override
 	public void start(Stage arg0) throws Exception {
 		Group root = new Group();
-		Canvas canvas = new Canvas(300, 250);
+		Canvas canvas = new Canvas(600, 600);
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 		drawModele(gc);
 		root.getChildren().add(canvas);
@@ -43,6 +43,7 @@ public class Plan extends Application {
 	public void drawModele(GraphicsContext gc) {
 		for(int i=0;i<m.getSegments().size();i++) {
 			Segment seg = m.getSegments().get(i);
+			gc.strokeOval(seg.getPointA().getX(), seg.getPointA().getY(), 2, 2);
 			gc.strokeLine(seg.getPointA().getX(), seg.getPointA().getY(), seg.getPointB().getX(), seg.getPointB().getY());
 		}
 	}

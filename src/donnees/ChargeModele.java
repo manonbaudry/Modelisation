@@ -51,7 +51,10 @@ public class ChargeModele {
 						Segment s1 = new Segment(m.getPoints().get(point1), m.getPoints().get(point2));
 						Segment s2 = new Segment(m.getPoints().get(point2), m.getPoints().get(point3));
 						Segment s3 = new Segment(m.getPoints().get(point3), m.getPoints().get(point1));
-								
+						m.getSegments().add(s1);	
+						m.getSegments().add(s2);
+						m.getSegments().add(s3);
+						
 						m.getFaces().add(new Face(s1, s2, s3));
 						nbFaces--;
 					}
@@ -63,11 +66,10 @@ public class ChargeModele {
 		}
 	}
 	
-	/*public static void main(String[] args) {
+	public static void main(String[] args) {
 		Modele m = new Modele();
 		ChargeModele.chargeModele(m, new File("ressources/dolphin.ply"));
-		System.out.println(m.getPoints().get(0));
-	}*/
+	}
 	
 
 }
