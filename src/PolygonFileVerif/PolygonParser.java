@@ -28,8 +28,12 @@ public class PolygonParser {
 		this.nbVertex = 0;
 		this.nbProperty = 0;
 	}
-
-	public Result Parse(File f){
+	/**
+	 * 
+	 * @param f
+	 * @return
+	 */
+	public Result parseHeader(File f){
 		int idx = 1;
 		try {
 			BufferedReader br = new BufferedReader(new FileReader(f));
@@ -54,17 +58,44 @@ public class PolygonParser {
 			br.close();
 		} catch (IOException ioe) {
 			result.addErrors(ioe.toString());
-		}catch(LineNotFoundException e) {
+		}catch(IndexOutOfBoundsException e) {
 			result.addErrors(e.toString());
+		}catch(NullPointerException npe) {
+			result.addErrors("end-header not found");
 		}
+		System.out.println("nb Vertex " + nbVertex + " nbProperty " + nbProperty + " nbFace " + nbFaces);
 		return result;
 	}
-
-	private boolean startWith(String line, String s) throws LineNotFoundException {
-		String[] split = line.split(" ");
-		return split[0].equals(s);
+	
+	
+	
+	public Result parseBody(File f) {
+		
+		return result;
+		
 	}
 
+	/**
+	 * 
+	 * @param line
+	 * @param s
+	 * @return
+	 */
+	private boolean startWith(String line, String s) {
+		try {
+			String[] split = line.split(" ");
+			return split[0].equals(s);	
+		}catch (IndexOutOfBoundsException e) {
+			result.addErrors("The line doesn't exist");
+			return false;
+		}
+	}
+	/**
+	 * 
+	 * @param line
+	 * @param idx
+	 * @return
+	 */
 	private boolean validateFormat(String line, int idx) {
 		if (idx != 2) {
 			result.addErrors("Format header is not at the correct position");
@@ -75,7 +106,12 @@ public class PolygonParser {
 		}
 		return true;
 	}
-
+	/**
+	 * 
+	 * @param line
+	 * @param idx
+	 * @return
+	 */
 	private boolean validateProperty(String line, int idx) {
 		String[] split = line.split(" ");
 		if (line.equals("property list uint8 int32 vertex_indices")) {
@@ -88,7 +124,12 @@ public class PolygonParser {
 		result.addErrors("property header is wrong");
 		return false;
 	}
-
+	/**
+	 * 
+	 * @param line
+	 * @param idx
+	 * @return
+	 */
 	private boolean validateElement(String line, int idx) {
 		if (idx != 3 && idx != 7) {
 			result.addErrors("Element header is not at the correct position");
@@ -106,9 +147,11 @@ public class PolygonParser {
 		return false;
 	}
 
+	
+	
 	public static void main(String[] args) {
 		PolygonParser p = new PolygonParser();
-		Result r = p.Parse(new File("ressources/dolphin.ply"));
+		Result r = p.parseHeader(new File("ressources/dolphin.ply"));
 		System.out.println(r.isValue());
 		System.out.println(r.getErrors().toString());
 	}
