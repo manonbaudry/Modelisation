@@ -18,11 +18,11 @@ public class Plan extends Application {
 	private int[][][] plan;
 	private Canvas canvas;
 
-	public Plan(int size, Modele m) {
+	public Plan(int size, Modele m, String image) {
 		this.size = size;
 		this.m = m;
 		canvas = new Canvas(1000, 800);
-		ChargeModele.chargeModele(m, new File("ressources/dolphin.ply"));
+		ChargeModele.chargeModele(m, new File(image));
 		this.plan = new int[this.size][this.size][this.size];
 	}
 

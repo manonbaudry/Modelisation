@@ -17,7 +17,7 @@ public class main extends Application {
 
 	public static void main(String[] args) throws Exception {
 		m = new Modele();
-		p = new Plan(5, m);
+		p = new Plan(5, m, "ressources/skull.ply");
 		Application.launch(args);
 	}
 }
