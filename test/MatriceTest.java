@@ -3,6 +3,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import donnees.Point;
+import math.CalculMatrice;
 import math.Matrice;
 
 public class MatriceTest {
@@ -53,8 +54,8 @@ public class MatriceTest {
 	
 	@Test
 	public void testTaille() {
-		assertNull(m1.addMatrice(m2));
-		assertNotNull(m1.addMatrice(m3));
+		assertNull(CalculMatrice.addMatrice(m1, m2));
+		assertNotNull(CalculMatrice.addMatrice(m1, m3));
 	}
 	
 	@Test
@@ -65,7 +66,7 @@ public class MatriceTest {
 				mTestAdd.setCoord(3, i, j);
 			}
 		}
-		assertEquals(mTestAdd, m1.addMatrice(m3));
+		assertEquals(mTestAdd, CalculMatrice.addMatrice(m1, m3));
 	}
 	
 	@Test
@@ -81,7 +82,7 @@ public class MatriceTest {
 		mTestSuppr.setCoord(3.0, 2, 1);
 		mTestSuppr.setCoord(5.0, 2, 2);
 		
-		assertEquals(mTestSuppr, m1.supprMatrice(m3));
+		assertEquals(mTestSuppr, CalculMatrice.supprMatrice(m1, m3));
 	}
 	
 	@Test
@@ -92,13 +93,13 @@ public class MatriceTest {
 				mTestMultNb.setCoord((i+j)*2, i, j);
 			}
 		}
-		assertEquals(mTestMultNb, m1.multMatriceNb(2));
+		assertEquals(mTestMultNb, CalculMatrice.multMatriceNb(m1, 2));
 	}
 	
 	@Test
 	public void testErrorMult() {
-		assertNull(m1.multMatrice(m2));
-		assertNotNull(m1.multMatrice(m3));
+		assertNull(CalculMatrice.multMatrice(m1, m2));
+		assertNotNull(CalculMatrice.multMatrice(m1, m3));
 	}
 	
 	@Test
@@ -114,17 +115,17 @@ public class MatriceTest {
 		mTestMult.setCoord(7.0, 2, 1);
 		mTestMult.setCoord(-2.0, 2, 2);
 		
-		assertEquals(mTestMult, m1.multMatrice(m3));
+		assertEquals(mTestMult, CalculMatrice.multMatrice(m1, m3));
 	}
 	
 	@Test
 	public void testVecteur() {
-		assertEquals(vecteur, Matrice.vecteur(new Point(3, 3, 3)));
+		assertEquals(vecteur, CalculMatrice.vecteur(new Point(3, 3, 3)));
 	}
 	
 	@Test
 	public void testIdentite() {
-		assertEquals(identite, Matrice.identite(4));
+		assertEquals(identite, CalculMatrice.identite(4));
 	}
 	
 	@Test
@@ -133,8 +134,20 @@ public class MatriceTest {
 		testTranslation.setCoord(6, 0, 0);
 		testTranslation.setCoord(6, 1, 0);
 		testTranslation.setCoord(6, 2, 0);
+		testTranslation.setCoord(1, 3, 0);
 		
-		assertEquals(testTranslation, vecteur.transaltion(new Point(3, 3, 3), new Point(3, 3, 3)));
+		assertEquals(testTranslation, CalculMatrice.translation(new Point(3, 3, 3), new Point(3, 3, 3)));
+	}
+	
+	@Test
+	public void testChgmtEchelle() {
+		Matrice testTranslation = new Matrice(4);
+		testTranslation.setCoord(6, 0, 0);
+		testTranslation.setCoord(6, 1, 0);
+		testTranslation.setCoord(6, 2, 0);
+		testTranslation.setCoord(1, 3, 0);
+		
+		assertEquals(testTranslation, CalculMatrice.chgmtEchelle(new Point(2, 2, 2), new Point(3, 3, 3)));
 	}
 	
 }
