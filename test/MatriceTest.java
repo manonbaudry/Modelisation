@@ -1,6 +1,8 @@
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
+
+import donnees.Point;
 import math.Matrice;
 
 public class MatriceTest {
@@ -8,6 +10,8 @@ public class MatriceTest {
 	private Matrice m1;
 	private Matrice m2;
 	private Matrice m3;
+	private Matrice vecteur;
+	private Matrice identite;
 	
 	
 	@Before
@@ -15,6 +19,8 @@ public class MatriceTest {
 		m1 = new Matrice(3, 3);
 		m2 = new Matrice(3, 2);
 		m3 = new Matrice(3, 3);
+		vecteur = new Matrice(4);
+		identite = new Matrice(4, 4);
 		
 		for (int i = 0; i < m1.getHeight(); i++) {
 			for (int j = 0; j < m1.getWidth(); j++) {
@@ -33,6 +39,16 @@ public class MatriceTest {
 				m3.setCoord(3-(i+j), i, j);
 			}
 		}
+		
+		vecteur.setCoord(3, 0, 0);
+		vecteur.setCoord(3, 1, 0);
+		vecteur.setCoord(3, 2, 0);
+		vecteur.setCoord(1, 3, 0);
+		
+		for (int i = 0; i < identite.getHeight(); i++) {
+			identite.setCoord(1, i, i);
+		}
+		
 	}
 	
 	@Test
@@ -101,5 +117,24 @@ public class MatriceTest {
 		assertEquals(mTestMult, m1.multMatrice(m3));
 	}
 	
-
+	@Test
+	public void testVecteur() {
+		assertEquals(vecteur, Matrice.vecteur(new Point(3, 3, 3)));
+	}
+	
+	@Test
+	public void testIdentite() {
+		assertEquals(identite, Matrice.identite(4));
+	}
+	
+	@Test
+	public void testTranslation() {
+		Matrice testTranslation = new Matrice(4);
+		testTranslation.setCoord(6, 0, 0);
+		testTranslation.setCoord(6, 1, 0);
+		testTranslation.setCoord(6, 2, 0);
+		
+		assertEquals(testTranslation, vecteur.transaltion(new Point(3, 3, 3), new Point(3, 3, 3)));
+	}
+	
 }

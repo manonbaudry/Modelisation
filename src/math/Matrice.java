@@ -2,6 +2,8 @@ package math;
 
 import java.util.Arrays;
 
+import donnees.Point;
+
 public class Matrice {
 
 	double[][] mat;
@@ -90,7 +92,33 @@ public class Matrice {
 		}
 		return null;
 	}
-
+	
+	public static Matrice vecteur(Point p) {
+		Matrice vecteur = new Matrice(4);
+		vecteur.setCoord(p.getX(), 0, 0);
+		vecteur.setCoord(p.getY(), 1, 0);
+		vecteur.setCoord(p.getZ(), 2, 0);
+		vecteur.setCoord(1, 3, 0);
+		return vecteur;
+	}
+	
+	public static Matrice identite(int l) {
+		Matrice identite = new Matrice(l, l);
+		for (int i = 0; i < identite.getHeight(); i++) {
+			identite.setCoord(1, i, i);
+		}
+		return identite;
+	}
+	
+	public Matrice transaltion(Point pDep, Point pDest) {
+		Matrice veMatrice = vecteur(pDep);
+		Matrice iden = identite(4);
+		iden.setCoord(pDest.getX(), 0, 3);
+		iden.setCoord(pDest.getY(), 1, 3);
+		iden.setCoord(pDest.getZ(), 2, 3);
+		return veMatrice.multMatrice(iden);
+	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

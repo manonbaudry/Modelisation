@@ -7,6 +7,8 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
+import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
@@ -15,7 +17,6 @@ public class Plan extends Application {
 
 	private int size;
 	private Modele m;
-	private int[][][] plan;
 	private Canvas canvas;
 
 	public Plan(int size, Modele m, String image) {
@@ -23,7 +24,6 @@ public class Plan extends Application {
 		this.m = m;
 		canvas = new Canvas(1000, 800);
 		ChargeModele.chargeModele(m, new File(image));
-		this.plan = new int[this.size][this.size][this.size];
 	}
 
 	public int getSize() {
@@ -33,9 +33,19 @@ public class Plan extends Application {
 	@Override
 	public void start(Stage s) throws Exception {
 		Group root = new Group();
+		HBox commande = new HBox();
+		
+		Button gauche = new Button("<-");
+		Button droite = new Button("->");
+		Button plus = new Button("-");
+		Button moins = new Button("+");
+		Button rotateGauche = new Button("↶");
+		Button rotateDroite = new Button("↷");
+		
+		commande.getChildren().addAll(gauche, moins, rotateGauche, rotateDroite, plus, droite);
 		
 		GraphicsContext gc = canvas.getGraphicsContext2D();
-		root.getChildren().add(canvas);
+		root.getChildren().addAll(canvas, commande);
 		Scene scene = new Scene(root);
 		m.triFaces(m.getFaces());
 		drawModele(gc);
