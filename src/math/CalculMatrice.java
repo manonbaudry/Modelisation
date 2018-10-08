@@ -49,10 +49,10 @@ public class CalculMatrice {
 	}
 
 	public static Matrice multMatrice(Matrice m1, Matrice m2) {
-		if (m2.getWidth() == m1.getHeight() && m2.getHeight() == m1.getWidth()) {
-			Matrice newMatrice = new Matrice(m2.getWidth(), m1.getWidth());
-			for (int i = 0; i < m2.getWidth(); i++) {
-				for (int j = 0; j < m1.getHeight(); j++) {
+		if (m1.getWidth() == m2.getHeight()) {
+			Matrice newMatrice = new Matrice(m1.getHeight(), m2.getWidth());
+			for (int i = 0; i < m1.getHeight(); i++) {
+				for (int j = 0; j < m2.getWidth(); j++) {
 					newMatrice.setCoord(0.0, i, j);
 					for (int k = 0; k < m1.getHeight(); k++) {
 						newMatrice.setCoord(newMatrice.getCoord(i, j) + (m1.getCoord(i, k) * m2.getCoord(k, j)), i, j);

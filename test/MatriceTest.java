@@ -51,7 +51,6 @@ public class MatriceTest {
 		}
 		
 	}
-	
 	@Test
 	public void testTaille() {
 		assertNull(CalculMatrice.addMatrice(m1, m2));
@@ -98,7 +97,7 @@ public class MatriceTest {
 	
 	@Test
 	public void testErrorMult() {
-		assertNull(CalculMatrice.multMatrice(m1, m2));
+		assertNull(CalculMatrice.multMatrice(m1, vecteur));
 		assertNotNull(CalculMatrice.multMatrice(m1, m3));
 	}
 	
@@ -115,7 +114,9 @@ public class MatriceTest {
 		mTestMult.setCoord(7.0, 2, 1);
 		mTestMult.setCoord(-2.0, 2, 2);
 		
+		
 		assertEquals(mTestMult, CalculMatrice.multMatrice(m1, m3));
+		assertEquals(vecteur, CalculMatrice.multMatrice(CalculMatrice.identite(4), vecteur));
 	}
 	
 	@Test

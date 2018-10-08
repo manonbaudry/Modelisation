@@ -37,12 +37,14 @@ public class Plan extends Application {
 		
 		Button gauche = new Button("<-");
 		Button droite = new Button("->");
+		Button haut = new Button("↑");
+		Button bas = new Button("↓");
 		Button plus = new Button("-");
 		Button moins = new Button("+");
 		Button rotateGauche = new Button("↶");
 		Button rotateDroite = new Button("↷");
 		
-		commande.getChildren().addAll(gauche, moins, rotateGauche, rotateDroite, plus, droite);
+		commande.getChildren().addAll(gauche, haut, moins, rotateGauche, rotateDroite, plus, bas, droite);
 		
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 		root.getChildren().addAll(canvas, commande);
