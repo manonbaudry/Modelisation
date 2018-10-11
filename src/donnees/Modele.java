@@ -40,7 +40,17 @@ public class Modele {
 	}
 	
 	public double getBarycentre (Face face) { 
-		return (face.getS1().getPointA().getZ()+face.getS2().getPointB().getZ()+face.getS3().getPointB().getZ()/3);
+		//return (face.getS1().getPointA().getZ()+face.getS2().getPointB().getZ()+face.getS3().getPointB().getZ()/3);
+		Segment s1 = face.getS1(); 
+		Segment s2 = face.getS2();
+		Point p1s1 = s1.getPointA();
+		Point p2s1 = s1.getPointB();
+		Point p2s2 = s2.getPointB();
+		double sommeX = (p1s1.getX()+p2s2.getX()+p2s1.getX()/3);
+		double sommeY = (p1s1.getY()+p2s2.getY()+p2s1.getY()/3);
+		double sommeZ = (p1s1.getZ()+p2s2.getZ()+p2s1.getZ()/3);
+		Point barycentre = new Point (sommeX, sommeY, sommeZ);
+		return barycentre.getZ();
 	}
 	
 	
@@ -58,15 +68,6 @@ public class Modele {
 				stock1 = stock2;
 			}
 		}
-		/*for (int i = 1; i < faces.size(); i ++) {
-			for (int j = 0; j < faces.size()-1; j++) {
-				if (getBarycentre(faces.get(i)) > getBarycentre(faces.get(j))){
-					stock = faces.get(j);
-					faces.add(j, faces.get(i));
-					faces.add(i, stock);
-				}
-			}
-		}*/
 		
 	}
 	
