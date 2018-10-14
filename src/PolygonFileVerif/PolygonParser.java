@@ -63,7 +63,6 @@ public class PolygonParser {
 			headerLength = idx;
 			idx = 0;
 			
-			
 			//parcours body
 			while (idx< (nbVertex+nbFaces)) {
 				if (idx <= nbVertex) {
@@ -186,7 +185,7 @@ public class PolygonParser {
 
 	private boolean validateFace(String line, int idx) {
 		line += " ";
-		if(line.matches("^([0-9]*\\ ){3}$")) {
+		if(line.matches("^([0-9]*\\ )*")) {
 				return true;
 		}
 		result.addErrors("La face à la ligne " + (idx+headerLength) + " est incorrecte");
@@ -203,7 +202,7 @@ public class PolygonParser {
 	
 	public static void main(String[] args) {
 		PolygonParser p = new PolygonParser();
-		Result r = p.parse(new File("ressources/cow.ply"));
+		Result r = p.parse(new File("ressources/cube.ply"));
 		System.out.println(r.isValue());
 		System.out.println(r.getErrors().toString());
 		 
