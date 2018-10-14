@@ -51,6 +51,7 @@ public class MatriceTest {
 		}
 		
 	}
+	
 	@Test
 	public void testTaille() {
 		assertNull(CalculMatrice.addMatrice(m1, m2));
@@ -121,7 +122,7 @@ public class MatriceTest {
 	
 	@Test
 	public void testVecteur() {
-		assertEquals(vecteur, CalculMatrice.vecteur(new Point(3, 3, 3)));
+		assertEquals(vecteur, CalculMatrice.vecteur(3, 3, 3));
 	}
 	
 	@Test
@@ -137,7 +138,7 @@ public class MatriceTest {
 		testTranslation.setCoord(6, 2, 0);
 		testTranslation.setCoord(1, 3, 0);
 		
-		assertEquals(testTranslation, CalculMatrice.translation(new Point(3, 3, 3), new Point(3, 3, 3)));
+		assertEquals(testTranslation, CalculMatrice.translation(CalculMatrice.vecteur(3, 3, 3), CalculMatrice.vecteur(3, 3, 3)));
 	}
 	
 	@Test
@@ -148,7 +149,37 @@ public class MatriceTest {
 		testTranslation.setCoord(6, 2, 0);
 		testTranslation.setCoord(1, 3, 0);
 		
-		assertEquals(testTranslation, CalculMatrice.chgmtEchelle(new Point(2, 2, 2), new Point(3, 3, 3)));
+		assertEquals(testTranslation, CalculMatrice.chgmtEchelle(CalculMatrice.vecteur(2, 2, 2), CalculMatrice.vecteur(3, 3, 3)));
+	}
+	
+	@Test
+	public void testRotationX() {
+		Matrice testRotation = new Matrice(4);
+		testRotation.setCoord(3, 0, 0);
+		testRotation.setCoord(-3, 1, 0);
+		testRotation.setCoord(3, 2, 0);
+		testRotation.setCoord(1, 3, 0);
+		assertEquals(testRotation, CalculMatrice.rotationX(vecteur, Math.PI/2));
+	}
+	
+	@Test
+	public void testRotationY() {
+		Matrice testRotation = new Matrice(4);
+		testRotation.setCoord(3, 0, 0);
+		testRotation.setCoord(3, 1, 0);
+		testRotation.setCoord(-3, 2, 0);
+		testRotation.setCoord(1, 3, 0);
+		assertEquals(testRotation, CalculMatrice.rotationY(vecteur, Math.PI/2));
+	}
+	
+	@Test
+	public void testRotationZ() {
+		Matrice testRotation = new Matrice(4);
+		testRotation.setCoord(-3, 0, 0);
+		testRotation.setCoord(3, 1, 0);
+		testRotation.setCoord(3, 2, 0);
+		testRotation.setCoord(1, 3, 0);
+		assertEquals(testRotation, CalculMatrice.rotationZ(vecteur, Math.PI/2));
 	}
 	
 }

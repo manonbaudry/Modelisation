@@ -2,6 +2,7 @@ package math;
 
 import java.util.Arrays;
 
+import IHM.main;
 import donnees.Point;
 
 public class Matrice {
@@ -49,7 +50,15 @@ public class Matrice {
 
 	@Override
 	public String toString() {
-		return Arrays.deepToString(mat);
+		String string = "";
+		for (int i = 0; i < getHeight(); i++) {
+			string+="{ ";
+			for (int j = 0; j < getWidth(); j++) {
+				string+=getCoord(i, j)+" ";
+			}
+			string+="}\n";
+		}
+		return string;
 	}
 
 }

@@ -64,12 +64,11 @@ public class CalculMatrice {
 		return null;
 	}
 	
-	
-	public static Matrice vecteur(Point p) {
+	public static Matrice vecteur(int x, int y, int z) {
 		Matrice vecteur = new Matrice(4);
-		vecteur.setCoord(p.getX(), 0, 0);
-		vecteur.setCoord(p.getY(), 1, 0);
-		vecteur.setCoord(p.getZ(), 2, 0);
+		vecteur.setCoord(x, 0, 0);
+		vecteur.setCoord(y, 1, 0);
+		vecteur.setCoord(z, 2, 0);
 		vecteur.setCoord(1, 3, 0);
 		return vecteur;
 	}
@@ -82,14 +81,45 @@ public class CalculMatrice {
 		return identite;
 	}
 	
-	public static Matrice translation(Point chgmt, Point dest) {
-		Matrice m = vecteur(new Point(chgmt.getX()+dest.getX(), chgmt.getY()+dest.getY(), chgmt.getZ()+dest.getZ()));
-		return m;
+	public static Matrice translation(Matrice dest, Matrice chgmt) {
+		Matrice res = CalculMatrice.addMatrice(chgmt, dest);
+		res.setCoord(1, res.getHeight()-1, 0);
+		return res;
 	}
 	
-	public static Matrice chgmtEchelle(Point chgmt, Point dest) {
-		Matrice m = vecteur(new Point(chgmt.getX()*dest.getX(), chgmt.getY()*dest.getY(), chgmt.getZ()*dest.getZ()));
-		return m;
+	public static Matrice chgmtEchelle(Matrice dest, Matrice chgmt) {
+		Matrice id = identite(chgmt.getHeight());
+		for (int i = 0; i < id.getHeight(); i++) {
+			id.setCoord(chgmt.getCoord(i, 0), i, i);
+		}
+		return CalculMatrice.multMatrice(id, dest);
+	}
+	
+	public static Matrice rotationX(Matrice m, double teta) {
+		Matrice id = identite(m.getHeight());
+		id.setCoord(Math.cos(teta), 1, 1);
+		id.setCoord(-Math.sin(teta), 1, 2);
+		id.setCoord(Math.sin(teta), 2, 1);
+		id.setCoord(Math.cos(teta), 2, 2);
+		return CalculMatrice.multMatrice(id, m);
+	}
+	
+	public static Matrice rotationY(Matrice m, double teta) {
+		Matrice id = identite(m.getHeight());
+		id.setCoord(Math.cos(teta), 0, 0);
+		id.setCoord(Math.sin(teta), 0, 2);
+		id.setCoord(-Math.sin(teta), 2, 0);
+		id.setCoord(Math.cos(teta), 2, 2);
+		return CalculMatrice.multMatrice(id, m);
+	}
+	
+	public static Matrice rotationZ(Matrice m, double teta) {
+		Matrice id = identite(m.getHeight());
+		id.setCoord(Math.cos(teta), 0, 0);
+		id.setCoord(-Math.sin(teta), 0, 1);
+		id.setCoord(Math.sin(teta), 1, 0);
+		id.setCoord(Math.cos(teta), 1, 1);
+		return CalculMatrice.multMatrice(id, m);
 	}
 	
 }
