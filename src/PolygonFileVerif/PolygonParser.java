@@ -10,10 +10,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
 
-import javax.swing.JOptionPane;
-
 /**
- * @author Manon
+ * @author Groupe O3
  *
  */
 public class PolygonParser {
@@ -21,19 +19,21 @@ public class PolygonParser {
 	private int nbVertex;
 	private int nbFaces;
 	private int nbProperty;
+	private int headerLength;
 
 	public PolygonParser() {
 		this.result = new Result();
 		this.nbFaces = 0;
 		this.nbVertex = 0;
 		this.nbProperty = 0;
+		this.headerLength = 0;
 	}
 	/**
 	 * 
 	 * @param f
 	 * @return
 	 */
-	public Result parseHeader(File f){
+	public Result parse(File f){
 		int idx = 1;
 		try {
 			BufferedReader br = new BufferedReader(new FileReader(f));
@@ -44,6 +44,8 @@ public class PolygonParser {
 				result.addErrors("Erreur sur la première ligne");
 			}
 			line = br.readLine();
+			
+			//Parcours du header
 			while (!line.equals("end_header")) {
 				idx++;
 				if (startWith(line, "format")) {
@@ -53,10 +55,30 @@ public class PolygonParser {
 				} else if (startWith(line, "element")) {
 					result.setValue(result.isValue() && validateElement(line, idx));
 				}
-				//Gestion Comment + property List
 				line = br.readLine();
 			}
+			
+			line = br.readLine();
+			idx++;
+			headerLength = idx;
+			idx = 0;
+			
+			
+			//parcours body
+			while (idx< (nbVertex+nbFaces)) {
+				if (idx <= nbVertex) {
+					if(idx!=nbVertex) 
+					result.setValue(result.isValue() && validateVertex(line, idx));
+					
+				} else if (idx < (nbVertex+nbFaces)) {
+					result.setValue(result.isValue() && validateFace(line, idx));
+				}
+				line = br.readLine();
+				idx++;
+			}	
+			
 			br.close();
+			
 		} catch (IOException ioe) {
 			result.addErrors(ioe.toString());
 		}catch(IndexOutOfBoundsException e) {
@@ -64,15 +86,8 @@ public class PolygonParser {
 		}catch(NullPointerException npe) {
 			result.addErrors("end-header not found");
 		}
-		System.out.println("nb Vertex " + nbVertex + " nbProperty " + nbProperty + " nbFace " + nbFaces);
+		System.out.println(nbProperty+"");
 		return result;
-	}
-	
-	
-	
-	public Result parseBody(File f) {
-		return result;
-		
 	}
 
 	/**
@@ -124,6 +139,7 @@ public class PolygonParser {
 		result.addErrors("property header is wrong");
 		return false;
 	}
+	
 	/**
 	 * 
 	 * @param line
@@ -146,13 +162,50 @@ public class PolygonParser {
 		result.addErrors("element header is wrong");
 		return false;
 	}
-
 	
+	
+	public Result parseBody(File f) {
+		int idx = 1;
+		try {
+			BufferedReader br = new BufferedReader(new FileReader(f));
+			String line = "";
+			line = br.readLine();
+
+			br.close();
+			
+		} catch (IOException ioe) {
+			result.addErrors(ioe.toString());
+		}catch(IndexOutOfBoundsException e) {
+			result.addErrors(e.toString());
+		}catch(NullPointerException npe) {
+			result.addErrors("end-header not found");
+		}
+		return result;
+		
+	}
+
+	private boolean validateFace(String line, int idx) {
+		line += " ";
+		if(line.matches("^([0-9]*\\ ){3}$")) {
+				return true;
+		}
+		result.addErrors("La face à la ligne " + (idx+headerLength) + " est incorrecte");
+		return false;
+	}
+	
+	private boolean validateVertex(String line, int idx) {
+		if(line.matches("^(-?[0-9]+\\.?[0-9]*\\ ){3}$")) {
+				return true;
+		}
+		result.addErrors("Le point à la ligne " + (idx+headerLength) + " est incorrect");
+		return false;
+	}
 	
 	public static void main(String[] args) {
 		PolygonParser p = new PolygonParser();
-		Result r = p.parseHeader(new File("ressources/dolphin.ply"));
+		Result r = p.parse(new File("ressources/cow.ply"));
 		System.out.println(r.isValue());
 		System.out.println(r.getErrors().toString());
+		 
 	}
 }
