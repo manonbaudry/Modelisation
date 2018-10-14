@@ -1,7 +1,8 @@
 package donnees;
 
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class Modele {
 
@@ -39,6 +40,11 @@ public class Modele {
 		this.segments = segments;
 	}
 	
+	/**
+	 * 
+	 * @param face
+	 * @return Retourne la valeur Z du barycentre d'une face
+	 */
 	public double getBarycentre (Face face) { 
 		//return (face.getS1().getPointA().getZ()+face.getS2().getPointB().getZ()+face.getS3().getPointB().getZ()/3);
 		Segment s1 = face.getS1(); 
@@ -54,21 +60,26 @@ public class Modele {
 	}
 	
 	
-	public void triFaces (ArrayList<Face> faces) {
-		Face stock1 = faces.get(0);
-		Face stock2;
-		Face tmp;
-		Iterator <Face> i = faces.iterator();
-		while (i.hasNext()) {
-			stock2 = i.next();
-			if (getBarycentre(stock2) < getBarycentre(stock1)){
-				tmp = stock1;
-				faces.set(faces.indexOf(stock1), stock2);
-				faces.set(faces.indexOf(stock2), tmp);
-				stock1 = stock2;
-			}
+	/**
+	 * Classe permettant l'utilisation de la methode Collections.sort()
+	 * @author FievetF
+	 *
+	 */
+	class SortByBarycentre implements Comparator <Face>{
+
+		@Override
+		public int compare(Face o1, Face o2) {
+			return Double.compare(getBarycentre(o1), getBarycentre(o2));
 		}
 		
+	}
+	
+	/**
+	 * Methode qui trie une ArrayList de faces
+	 * @param faces
+	 */
+	public void triFaces (ArrayList<Face> faces) {
+		Collections.sort(faces, new SortByBarycentre());
 	}
 	
 }
