@@ -64,11 +64,11 @@ public class CalculMatrice {
 		return null;
 	}
 	
-	public static Matrice vecteur(int x, int y, int z) {
+	public static Matrice vecteur(double d, double e, double f) {
 		Matrice vecteur = new Matrice(4);
-		vecteur.setCoord(x, 0, 0);
-		vecteur.setCoord(y, 1, 0);
-		vecteur.setCoord(z, 2, 0);
+		vecteur.setCoord(d, 0, 0);
+		vecteur.setCoord(e, 1, 0);
+		vecteur.setCoord(f, 2, 0);
 		vecteur.setCoord(1, 3, 0);
 		return vecteur;
 	}

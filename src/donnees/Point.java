@@ -36,10 +36,10 @@ public class Point {
 
 	/**
 	 * permet de changer la valeur de x.
-	 * @param x
+	 * @param d
 	 */
-	public void setX(int x) {
-		this.x = x;
+	public void setX(double d) {
+		this.x = d;
 	}
 
 	/**
@@ -55,7 +55,7 @@ public class Point {
 	 * @param y
 	 */
 
-	public void setY(int y) {
+	public void setY(double y) {
 		this.y = y;
 	}
 	
@@ -72,7 +72,7 @@ public class Point {
 	 * permet de changer la valeur de z.
 	 * @param z
 	 */
-	public void setZ(int z) {
+	public void setZ(double z) {
 		this.z = z;
 	}
 }
