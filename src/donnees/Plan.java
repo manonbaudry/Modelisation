@@ -8,9 +8,9 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 import math.CalculMatrice;
 import math.Matrice;
@@ -32,12 +32,22 @@ public class Plan extends Application {
 
 	@Override
 	public void start(Stage s) throws Exception {
+		//declaration conteneur
 		Group root = new Group();
 		HBox commande = new HBox();
-
 		GraphicsContext gc = canvas.getGraphicsContext2D();
-
+		
+		//declarations button
 		Button gauche = new Button("<-");
+		Button droite = new Button("->");
+		Button haut = new Button("↑");
+		Button bas = new Button("↓");
+		Button plus = new Button("-");
+		Button moins = new Button("+");
+		Button rotateGauche = new Button("↶");
+		Button rotateDroite = new Button("↷");
+		
+		//different changement
 		gauche.setOnAction(e -> {
 			for (int i = 0; i < m.getPoints().size(); i++) {
 				Point p = m.getPoints().get(i);
@@ -49,7 +59,7 @@ public class Plan extends Application {
 			}
 			drawModele(gc);
 		});
-		Button droite = new Button("->");
+		
 		droite.setOnAction(e -> {
 			for (int i = 0; i < m.getPoints().size(); i++) {
 				Point p = m.getPoints().get(i);
@@ -61,7 +71,7 @@ public class Plan extends Application {
 			}
 			drawModele(gc);
 		});
-		Button haut = new Button("↑");
+		
 		haut.setOnAction(e -> {
 			for (int i = 0; i < m.getPoints().size(); i++) {
 				Point p = m.getPoints().get(i);
@@ -73,7 +83,7 @@ public class Plan extends Application {
 			}
 			drawModele(gc);
 		});
-		Button bas = new Button("↓");
+		
 		bas.setOnAction(e -> {
 			for (int i = 0; i < m.getPoints().size(); i++) {
 				Point p = m.getPoints().get(i);
@@ -85,7 +95,7 @@ public class Plan extends Application {
 			}
 			drawModele(gc);
 		});
-		Button plus = new Button("-");
+		
 		plus.setOnAction(e -> {
 			for (int i = 0; i < m.getPoints().size(); i++) {
 				Point p = m.getPoints().get(i);
@@ -97,7 +107,7 @@ public class Plan extends Application {
 			}
 			drawModele(gc);
 		});
-		Button moins = new Button("+");
+		
 		moins.setOnAction(e -> {
 			for (int i = 0; i < m.getPoints().size(); i++) {
 				Point p = m.getPoints().get(i);
@@ -109,7 +119,7 @@ public class Plan extends Application {
 			}
 			drawModele(gc);
 		});
-		Button rotateGauche = new Button("↶");
+		
 		rotateGauche.setOnAction(e -> {
 			for (int i = 0; i < m.getPoints().size(); i++) {
 				Point p = m.getPoints().get(i);
@@ -120,7 +130,7 @@ public class Plan extends Application {
 			}
 			drawModele(gc);
 		});
-		Button rotateDroite = new Button("↷");
+		
 		rotateDroite.setOnAction(e -> {
 			for (int i = 0; i < m.getPoints().size(); i++) {
 				Point p = m.getPoints().get(i);
@@ -162,6 +172,53 @@ public class Plan extends Application {
 			y = (int) e.getY();
 		});
 
+		root.setOnKeyPressed(e->{
+			if (e.getCode().equals(KeyCode.RIGHT)) {
+				for (int i = 0; i < m.getPoints().size(); i++) {
+					Point p = m.getPoints().get(i);
+					Matrice mt = CalculMatrice.rotationY(CalculMatrice.vecteur(p.getX(), p.getY(), p.getZ()),
+							Math.PI / 32);
+					p.setX(mt.getCoord(0, 0));
+					p.setY(mt.getCoord(1, 0));
+					p.setZ(mt.getCoord(2, 0));
+				}
+				drawModele(gc);
+			}
+			if (e.getCode().equals(KeyCode.LEFT)) {
+				for (int i = 0; i < m.getPoints().size(); i++) {
+					Point p = m.getPoints().get(i);
+					Matrice mt = CalculMatrice.rotationY(CalculMatrice.vecteur(p.getX(), p.getY(), p.getZ()),
+							-Math.PI / 32);
+					p.setX(mt.getCoord(0, 0));
+					p.setY(mt.getCoord(1, 0));
+					p.setZ(mt.getCoord(2, 0));
+				}
+				drawModele(gc);
+			}
+			if (e.getCode().equals(KeyCode.UP)) {
+				for (int i = 0; i < m.getPoints().size(); i++) {
+					Point p = m.getPoints().get(i);
+					Matrice mt = CalculMatrice.rotationX(CalculMatrice.vecteur(p.getX(), p.getY(), p.getZ()),
+							Math.PI / 32);
+					p.setX(mt.getCoord(0, 0));
+					p.setY(mt.getCoord(1, 0));
+					p.setZ(mt.getCoord(2, 0));
+				}
+				drawModele(gc);
+			}
+			if (e.getCode().equals(KeyCode.DOWN)) {
+				for (int i = 0; i < m.getPoints().size(); i++) {
+					Point p = m.getPoints().get(i);
+					Matrice mt = CalculMatrice.rotationX(CalculMatrice.vecteur(p.getX(), p.getY(), p.getZ()),
+							-Math.PI / 32);
+					p.setX(mt.getCoord(0, 0));
+					p.setY(mt.getCoord(1, 0));
+					p.setZ(mt.getCoord(2, 0));
+				}
+				drawModele(gc);
+			}
+		});
+		
 		canvas.setOnMouseDragged(e -> {
 			float xTemp = (float) e.getX();
 			int nb = 1;
@@ -195,7 +252,7 @@ public class Plan extends Application {
 					}
 					drawModele(gc);
 				}
-			} else {
+			} else if (e.isSecondaryButtonDown()) {
 				if (nbY > 0 && yTemp != y) {
 					for (int i = 0; i < m.getPoints().size(); i++) {
 						Point p = m.getPoints().get(i);
@@ -220,11 +277,12 @@ public class Plan extends Application {
 			}
 		});
 
+		//ajout des buttons
 		commande.getChildren().addAll(gauche, haut, moins, rotateGauche, rotateDroite, plus, bas, droite);
 
+		//chargement stage
 		root.getChildren().addAll(canvas, commande);
 		Scene scene = new Scene(root);
-		m.triFaces(m.getFaces());
 		drawModele(gc);
 		s.setScene(scene);
 		s.setTitle("3D scene");
@@ -244,13 +302,9 @@ public class Plan extends Application {
 				xPoints[j] += canvas.getWidth() / 2;
 			}
 			gc.strokePolygon(xPoints, yPoints, 3);
+			gc.fillPolygon(xPoints, yPoints, 3);
 			gc.setFill(Color.GRAY);
 		}
-		/*for (int i = 0; i < m.getSegments().size(); i++) {
-			Segment seg = m.getSegments().get(i);
-			gc.strokeLine(seg.getPointA().getX() + canvas.getWidth() / 2,
-					seg.getPointA().getY() + canvas.getHeight() / 2, seg.getPointB().getX() + canvas.getWidth() / 2,
-					seg.getPointB().getY() + canvas.getHeight() / 2);
-		}*/
+		
 	}
 }
