@@ -47,6 +47,10 @@ public class Result {
 	}
 
 	
+	public String toString() {
+		return errors.toString();
+	}
+	
 	
 	
 	

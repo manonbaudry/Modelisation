@@ -10,6 +10,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
 
+import javax.swing.JOptionPane;
+
 import donnees.Face;
 import donnees.Modele;
 import donnees.Point;
@@ -38,7 +40,7 @@ public class PolygonParser {
 	 * @param f
 	 * @return
 	 */
-	public Result parse(Modele modele,File f){
+	private Result parse(Modele modele,File f){
 		int idx = 1;
 		try {
 			BufferedReader br = new BufferedReader(new FileReader(f));
@@ -184,27 +186,6 @@ public class PolygonParser {
 		result.addErrors("element header is wrong");
 		return false;
 	}
-	
-	
-	public Result parseBody(File f) {
-		int idx = 1;
-		try {
-			BufferedReader br = new BufferedReader(new FileReader(f));
-			String line = "";
-			line = br.readLine();
-
-			br.close();
-			
-		} catch (IOException ioe) {
-			result.addErrors(ioe.toString());
-		}catch(IndexOutOfBoundsException e) {
-			result.addErrors(e.toString());
-		}catch(NullPointerException npe) {
-			result.addErrors("end-header not found");
-		}
-		return result;
-		
-	}
 
 	private boolean validateFace(String line, int idx) {
 		line += " ";
@@ -221,6 +202,13 @@ public class PolygonParser {
 		}
 		result.addErrors("Le point à la ligne " + (idx+headerLength) + " est incorrect");
 		return false;
+	}
+	
+	public void chargeModele(Modele modele, File f) {
+		parse(modele, f);
+		if(! result.isValue()) {
+			JOptionPane.showMessageDialog(null, result.toString());
+		}
 	}
 	
 	public static void main(String[] args) {
