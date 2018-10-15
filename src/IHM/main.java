@@ -14,7 +14,6 @@ public class main extends Application {
 		p.start(new Stage());
 	}
 
-
 	public static void main(String[] args) throws Exception {
 		m = new Modele();
 		p = new Plan(m, "ressources/apple.ply");
