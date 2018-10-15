@@ -8,11 +8,11 @@ import math.Matrice;
 
 public class MatriceTest {
 	
-	private Matrice m1;
-	private Matrice m2;
-	private Matrice m3;
-	private Matrice vecteur;
-	private Matrice identite;
+	public Matrice m1;
+	public Matrice m2;
+	public Matrice m3;
+	public Matrice vecteur;
+	public Matrice identite;
 	
 	
 	@Before
