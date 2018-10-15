@@ -17,7 +17,7 @@ public class main extends Application {
 
 	public static void main(String[] args) throws Exception {
 		m = new Modele();
-		p = new Plan(m, "ressources/cow.ply");
+		p = new Plan(m, "ressources/arme.ply");
 		Application.launch(args);
 	}
 }
