@@ -1,15 +1,21 @@
 package math;
 
-import donnees.Point;
-
+/**
+ * Class de calcul matricielle
+ * 
+ * @author prunierf
+ *
+ */
 public class CalculMatrice {
-	
+
 	/**
-	 * Addition entre la matrice courante et celle passe en parametre
+	 * Addition entre la matrice m1 et m2
 	 * 
 	 * @param m1
-	 *            - matrice
-	 * @return matrice courante
+	 *            - Matrice
+	 * @param m2
+	 *            - Matrice
+	 * @return matrice m1 modifie
 	 */
 	public static Matrice addMatrice(Matrice m1, Matrice m2) {
 		if (m2.getWidth() == m1.getWidth() && m2.getHeight() == m1.getHeight()) {
@@ -23,6 +29,15 @@ public class CalculMatrice {
 		return null;
 	}
 
+	/**
+	 * Soustraction entre la matrice m1 et m2
+	 * 
+	 * @param m1
+	 *            - Matrice
+	 * @param m2
+	 *            - Matrice
+	 * @return matrice m1 modifie
+	 */
 	public static Matrice supprMatrice(Matrice m1, Matrice m2) {
 		if (m2.getWidth() == m1.getWidth() && m2.getHeight() == m1.getHeight()) {
 			for (int i = 0; i < m1.getHeight(); i++) {
@@ -35,10 +50,28 @@ public class CalculMatrice {
 		return null;
 	}
 
+	/**
+	 * Multiplication matrice m1 et un nombre
+	 * 
+	 * @param m
+	 *            - Matrice
+	 * @param nb
+	 *            - nombre
+	 * @return matrice m modifie
+	 */
 	public static Matrice multMatriceNb(Matrice m, int nb) {
 		return multMatriceNb(m, Double.valueOf(nb));
 	}
 
+	/**
+	 * Multiplication matrice m1 et un nombre
+	 * 
+	 * @param m
+	 *            - Matrice
+	 * @param nb
+	 *            - nombre
+	 * @return m modifie
+	 */
 	public static Matrice multMatriceNb(Matrice m, double nb) {
 		for (int i = 0; i < m.getHeight(); i++) {
 			for (int j = 0; j < m.getWidth(); j++) {
@@ -48,6 +81,15 @@ public class CalculMatrice {
 		return m;
 	}
 
+	/**
+	 * Multiplication matrice m1 et Matrice m2
+	 * 
+	 * @param m1
+	 *            - Matrice
+	 * @param m2
+	 *            - Matrice
+	 * @return nouvelle matrice
+	 */
 	public static Matrice multMatrice(Matrice m1, Matrice m2) {
 		if (m1.getWidth() == m2.getHeight()) {
 			Matrice newMatrice = new Matrice(m1.getHeight(), m2.getWidth());
@@ -63,16 +105,30 @@ public class CalculMatrice {
 		}
 		return null;
 	}
-	
-	public static Matrice vecteur(double d, double e, double f) {
+
+	/**
+	 * Cree un vecteur de taille 4*1
+	 * 
+	 * @param x
+	 * @param y
+	 * @param z
+	 * @return Matrice
+	 */
+	public static Matrice vecteur(double x, double y, double z) {
 		Matrice vecteur = new Matrice(4);
-		vecteur.setCoord(d, 0, 0);
-		vecteur.setCoord(e, 1, 0);
-		vecteur.setCoord(f, 2, 0);
+		vecteur.setCoord(x, 0, 0);
+		vecteur.setCoord(y, 1, 0);
+		vecteur.setCoord(z, 2, 0);
 		vecteur.setCoord(1, 3, 0);
 		return vecteur;
 	}
-	
+
+	/**
+	 * Cree matrice iodentite de taille l
+	 * 
+	 * @param l
+	 * @return matrice identite
+	 */
 	public static Matrice identite(int l) {
 		Matrice identite = new Matrice(l, l);
 		for (int i = 0; i < identite.getHeight(); i++) {
@@ -80,13 +136,31 @@ public class CalculMatrice {
 		}
 		return identite;
 	}
-	
+
+	/**
+	 * Transaltion de Matrice dest sur la Matrice chgmt
+	 * 
+	 * @param dest
+	 *            - Matrice
+	 * @param chgmt
+	 *            - Matrice
+	 * @return nouvelle matrice
+	 */
 	public static Matrice translation(Matrice dest, Matrice chgmt) {
 		Matrice res = CalculMatrice.addMatrice(chgmt, dest);
-		res.setCoord(1, res.getHeight()-1, 0);
+		res.setCoord(1, res.getHeight() - 1, 0);
 		return res;
 	}
-	
+
+	/**
+	 * Changement d'echelle de Matrice dest sur la Matrice chgmt
+	 * 
+	 * @param dest
+	 *            - Matrice
+	 * @param chgmt
+	 *            - Matrice
+	 * @return Matrice dest
+	 */
 	public static Matrice chgmtEchelle(Matrice dest, Matrice chgmt) {
 		Matrice id = identite(chgmt.getHeight());
 		for (int i = 0; i < id.getHeight(); i++) {
@@ -94,7 +168,16 @@ public class CalculMatrice {
 		}
 		return CalculMatrice.multMatrice(id, dest);
 	}
-	
+
+	/**
+	 * Rotation X de la matrice m d angle teta
+	 * 
+	 * @param m
+	 *            - Matrice
+	 * @param teta
+	 *            - radian
+	 * @return Matrice m transforme
+	 */
 	public static Matrice rotationX(Matrice m, double teta) {
 		Matrice id = identite(m.getHeight());
 		id.setCoord(Math.cos(teta), 1, 1);
@@ -103,7 +186,16 @@ public class CalculMatrice {
 		id.setCoord(Math.cos(teta), 2, 2);
 		return CalculMatrice.multMatrice(id, m);
 	}
-	
+
+	/**
+	 * Rotation Y de la matrice m d angle teta
+	 * 
+	 * @param m
+	 *            - Matrice
+	 * @param teta
+	 *            - radian
+	 * @return Matrice m transforme
+	 */
 	public static Matrice rotationY(Matrice m, double teta) {
 		Matrice id = identite(m.getHeight());
 		id.setCoord(Math.cos(teta), 0, 0);
@@ -112,7 +204,16 @@ public class CalculMatrice {
 		id.setCoord(Math.cos(teta), 2, 2);
 		return CalculMatrice.multMatrice(id, m);
 	}
-	
+
+	/**
+	 * Rotation Z de la matrice m d angle teta
+	 * 
+	 * @param m
+	 *            - Matrice
+	 * @param teta
+	 *            - radian
+	 * @return Matrice m transforme
+	 */
 	public static Matrice rotationZ(Matrice m, double teta) {
 		Matrice id = identite(m.getHeight());
 		id.setCoord(Math.cos(teta), 0, 0);
@@ -121,5 +222,5 @@ public class CalculMatrice {
 		id.setCoord(Math.cos(teta), 1, 1);
 		return CalculMatrice.multMatrice(id, m);
 	}
-	
+
 }

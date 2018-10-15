@@ -5,9 +5,14 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
-
 import javax.swing.JOptionPane;
 
+/**
+ * Class permettant de charger le modele .ply
+ * 
+ * @author prunierf
+ *
+ */
 public class ChargeModele {
 
 	/**
